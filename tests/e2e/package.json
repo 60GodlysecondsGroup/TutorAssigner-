@@ -1,0 +1,13 @@
+{
+  "name": "@tutorias/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "E2E con Playwright. Corre en el contenedor oficial de Playwright (perfil e2e de Compose); no es un workspace del monorepo para no mezclar binarios de navegador con el resto.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

@@ -1,0 +1,17 @@
+import type { Knex } from 'knex';
+import { addUpdatedAtTrigger, timestamps, uuidPrimaryKey } from '../helpers';
+
+// Una migración mergeada nunca se edita: crea una nueva para cada cambio.
+// Escribe solo sobre las tablas de tu módulo.
+
+export async function up(knex: Knex): Promise<void> {
+  await knex.schema.createTable('nombre_tabla', (t) => {
+    uuidPrimaryKey(knex, t);
+    timestamps(knex, t);
+  });
+  await addUpdatedAtTrigger(knex, 'nombre_tabla');
+}
+
+export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTable('nombre_tabla');
+}

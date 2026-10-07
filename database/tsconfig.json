@@ -1,0 +1,7 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["knexfile.ts", "helpers.ts", "migrations", "seeds", "scripts"]
+}

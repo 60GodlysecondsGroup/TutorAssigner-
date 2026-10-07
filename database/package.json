@@ -1,0 +1,28 @@
+{
+  "name": "@tutorias/database",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Migraciones (Knex, una por archivo y por módulo), seeds y runner. La herramienta es de Dev 1; cada migración es de su módulo.",
+  "type": "module",
+  "exports": {
+    "./knexfile": "./knexfile.ts",
+    "./runner": "./scripts/runner.ts",
+    "./helpers": "./helpers.ts"
+  },
+  "scripts": {
+    "migrate": "tsx scripts/cli.ts latest",
+    "migrate:rollback": "tsx scripts/cli.ts rollback",
+    "migrate:down-all": "tsx scripts/cli.ts rollback-all",
+    "migrate:status": "tsx scripts/cli.ts status",
+    "migrate:make": "tsx scripts/cli.ts make",
+    "seed": "tsx scripts/cli.ts seed",
+    "setup": "tsx scripts/cli.ts setup",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "knex": "^3.1.0",
+    "pg": "^8.16.3",
+    "tsx": "^4.20.6"
+  }
+}

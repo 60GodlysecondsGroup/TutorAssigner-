@@ -1,0 +1,67 @@
+# Ownership por carpeta y patrón (sección 13 del plan).
+# Reemplaza los alias @tutorias-dev1 … @tutorias-dev5 por los usuarios o equipos de GitHub reales.
+# La última regla que coincide gana: las específicas van al final.
+
+# ── Dev 1 · Plataforma (por defecto: raíz y archivos sensibles) ─────────────
+*                                           @tutorias-dev1
+/apps/api/src/platform/                     @tutorias-dev1
+/apps/api/src/app.ts                        @tutorias-dev1
+/apps/api/src/server.ts                     @tutorias-dev1
+/apps/api/src/modules/_plantilla/           @tutorias-dev1
+/apps/api/src/modules/auth/                 @tutorias-dev1
+/apps/api/test/                             @tutorias-dev1
+/apps/web/src/features/auth/                @tutorias-dev1
+/packages/contracts/src/auth/               @tutorias-dev1
+/database/knexfile.ts                       @tutorias-dev1
+/database/helpers.ts                        @tutorias-dev1
+/database/scripts/                          @tutorias-dev1
+/database/migrations/*_plataforma_*         @tutorias-dev1
+/database/migrations/*_auth_*               @tutorias-dev1
+/database/seeds/01_admin.ts                 @tutorias-dev1
+/docker/                                    @tutorias-dev1
+/compose*.yaml                              @tutorias-dev1
+/.github/                                   @tutorias-dev1
+/docs/architecture/                         @tutorias-dev1
+/docs/conventions.md                        @tutorias-dev1
+/docs/modules/auth/                         @tutorias-dev1
+/docs/modules/plataforma/                   @tutorias-dev1
+
+# ── Dev 2 · Tutores y Materias ─────────────────────────────────────────────
+/apps/api/src/modules/tutores/              @tutorias-dev2
+/apps/web/src/features/tutores/             @tutorias-dev2
+/apps/web/src/features/materias/            @tutorias-dev2
+/packages/contracts/src/tutores/            @tutorias-dev2
+/database/migrations/*_tutores_*            @tutorias-dev2
+/database/seeds/02_materias.ts              @tutorias-dev2
+/docs/modules/tutores/                      @tutorias-dev2
+
+# ── Dev 3 · Estudiantes y Solicitudes ──────────────────────────────────────
+/apps/api/src/modules/solicitudes/          @tutorias-dev3
+/apps/web/src/features/solicitudes/         @tutorias-dev3
+/apps/web/src/features/estudiantes/         @tutorias-dev3
+/packages/contracts/src/solicitudes/        @tutorias-dev3
+/database/migrations/*_solicitudes_*        @tutorias-dev3
+/docs/modules/solicitudes/                  @tutorias-dev3
+
+# ── Dev 4 · Matching y Recomendaciones (backend) ───────────────────────────
+/packages/matching/                         @tutorias-dev4
+/apps/api/src/modules/recomendaciones/      @tutorias-dev4
+/packages/contracts/src/matching/           @tutorias-dev4
+/packages/contracts/src/recomendaciones/    @tutorias-dev4
+/database/migrations/*_recomendaciones_*    @tutorias-dev4
+/database/seeds/03_config.ts                @tutorias-dev4
+/database/seeds/10_demo.ts                  @tutorias-dev4
+/docs/modules/matching/                     @tutorias-dev4
+/docs/modules/recomendaciones/              @tutorias-dev4
+
+# ── Dev 5 · Frontend core y Recomendaciones (UI) ───────────────────────────
+/apps/web/src/app/                          @tutorias-dev5
+/apps/web/src/shared/                       @tutorias-dev5
+/apps/web/src/mocks/                        @tutorias-dev5
+/apps/web/src/features/recomendaciones/     @tutorias-dev5
+/apps/web/src/features/configuracion/       @tutorias-dev5
+/apps/web/src/features/dashboard/           @tutorias-dev5
+/tests/e2e/                                 @tutorias-dev5
+
+# ── Compartido: contrato común (Dev 1 + un consumidor) ─────────────────────
+/packages/contracts/src/common/             @tutorias-dev1 @tutorias-dev5

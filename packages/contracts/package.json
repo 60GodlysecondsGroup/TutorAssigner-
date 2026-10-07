@@ -1,0 +1,19 @@
+{
+  "name": "@tutorias/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Esquemas Zod: fuente única de contratos entre web, API y módulos. Se importa por subruta (@tutorias/contracts/<modulo>).",
+  "type": "module",
+  "exports": {
+    "./*/fixtures": "./src/*/fixtures.ts",
+    "./*": "./src/*/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "zod": "^4.1.12"
+  }
+}

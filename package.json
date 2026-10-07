@@ -1,0 +1,44 @@
+{
+  "name": "tutorias-matching",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Matching de tutorías entre pares — monorepo (React + Vite, Node.js + Express, PostgreSQL, Docker)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12 <23",
+    "npm": ">=10"
+  },
+  "workspaces": [
+    "packages/contracts",
+    "packages/matching",
+    "database",
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:unit": "npm run test:unit --workspaces --if-present",
+    "build": "npm run build -w apps/web && npm run build -w apps/api",
+    "migrate": "npm run migrate -w database",
+    "migrate:rollback": "npm run migrate:rollback -w database",
+    "migrate:make": "npm run migrate:make -w database --",
+    "seed": "npm run seed -w database",
+    "test:e2e": "docker compose --profile e2e run --rm e2e",
+    "test:int": "npm run test:int -w apps/api"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.18.0",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.4"
+  }
+}

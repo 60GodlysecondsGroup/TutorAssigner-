@@ -1,0 +1,63 @@
+# Producción (Dev 1): dos servicios de larga vida (app + db) y un job previo de migraciones.
+#   docker compose -f compose.prod.yaml up -d --build
+# Los secretos llegan por variables de entorno de la plataforma; Compose se niega a arrancar si faltan.
+name: tutorias-prod
+
+x-app-image: &app-image
+  image: tutorias-app:${APP_VERSION:-local}
+  build:
+    context: .
+    dockerfile: docker/node.Dockerfile
+    target: prod
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER es obligatorio}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD es obligatorio}
+      POSTGRES_DB: ${POSTGRES_DB:-tutorias}
+      POSTGRES_INITDB_ARGS: --encoding=UTF8 --locale-provider=builtin --builtin-locale=C.UTF-8
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  migrate:
+    <<: *app-image
+    command: ['node', '--import', 'tsx', 'database/scripts/cli.ts', 'setup']
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-tutorias}
+      # Solo seeds base en producción (sin 10_demo).
+      SEED_DEMO: 'false'
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_NOMBRE: ${ADMIN_NOMBRE:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: 'no'
+
+  app:
+    <<: *app-image
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-tutorias}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET es obligatorio (≥ 32 caracteres)}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      TRUST_PROXY: ${TRUST_PROXY:-0}
+    ports:
+      - '${APP_HOST_PORT:-8080}:3000'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+volumes:
+  pgdata:
