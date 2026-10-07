@@ -1,8 +1,17 @@
 /**
- * @tutorias/matching — motor puro (Dev 4, fase F6).
+ * @tutorias/matching — motor puro (Dev 4, fase F6). Sin Express, Knex ni I/O (regla de lint).
  *
- * Bootstrap F0: paquete vacío para que el monorepo compile. Dev 4 implementa aquí
- * `evaluar()`, `validarConfig()` y `franjas.*` según la sección 10 del plan.
- * Regla de lint: este paquete no puede importar Express, Knex ni pg.
+ *   evaluar(solicitud, candidatos, config) → ResultadoMatching
+ *   validarConfig(config) → boolean          diagnosticarConfig(config) → problemas
+ *   franjas.*                                 también en `@tutorias/matching/franjas`
  */
-export {};
+export { evaluar } from './evaluar';
+export {
+  diagnosticarConfig,
+  validarConfig,
+  TOLERANCIA_SUMA_PESOS,
+  type ProblemaConfig,
+} from './config';
+export { compararCandidatos } from './desempate';
+export { CRITERIOS_V1 } from './criterios';
+export * as franjas from './franjas';

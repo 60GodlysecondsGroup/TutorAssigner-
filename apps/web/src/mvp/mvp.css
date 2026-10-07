@@ -1,0 +1,254 @@
+:root {
+  --azul: #2f5bd3;
+  --fondo: #f4f6fb;
+  --borde: #dde2ec;
+  --texto: #1d2433;
+  --suave: #5a6478;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  color: var(--texto);
+}
+body {
+  margin: 0;
+  background: var(--fondo);
+}
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid var(--borde);
+  flex-wrap: wrap;
+}
+.barra nav {
+  display: flex;
+  gap: 0.25rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.barra nav a {
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  color: var(--suave);
+  text-decoration: none;
+}
+.barra nav a.active {
+  background: #e8eefc;
+  color: var(--azul);
+  font-weight: 600;
+}
+.usuario {
+  color: var(--suave);
+}
+.contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+h1 {
+  margin: 0 0 1rem;
+}
+h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+.titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tarjeta {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.tarjeta {
+  padding: 0;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: top;
+}
+th {
+  font-size: 0.8rem;
+  color: var(--suave);
+  text-transform: uppercase;
+}
+small {
+  color: var(--suave);
+}
+button,
+.boton {
+  background: var(--azul);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.45rem 0.85rem;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+button.secundario {
+  background: #fff;
+  color: var(--azul);
+  border: 1px solid var(--azul);
+}
+button.peligro {
+  background: #c62828;
+}
+button:disabled {
+  opacity: 0.6;
+}
+input,
+select {
+  font: inherit;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+}
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.8rem;
+  align-items: end;
+}
+.formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+.completo {
+  grid-column: 1 / -1;
+}
+.franjas .fila {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin: 0.3rem 0;
+}
+.error {
+  color: #8e1b1b;
+  background: #fdecec;
+  padding: 0.6rem;
+  border-radius: 6px;
+}
+.ok {
+  color: #1b5e20;
+}
+.vacio {
+  color: var(--suave);
+}
+.acciones {
+  display: flex;
+  gap: 0.4rem;
+}
+.badge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #eceff4;
+  margin-left: 0.3rem;
+}
+.badge.ABIERTA,
+.badge.ACTIVA {
+  background: #e3f2e6;
+  color: #1b5e20;
+}
+.badge.ASIGNADA {
+  background: #e8eefc;
+  color: var(--azul);
+}
+.badge.CANCELADA {
+  background: #fdecec;
+  color: #8e1b1b;
+}
+.badge.alterno {
+  background: #fff6db;
+  color: #6b4a00;
+}
+tr.inactivo td {
+  opacity: 0.55;
+}
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.kpi {
+  color: var(--suave);
+}
+.kpi span {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.justificacion {
+  font-size: 1.1rem;
+  border-left: 5px solid var(--azul);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+.justificacion.SIN_CANDIDATOS {
+  border-left-color: #c62828;
+}
+.ranking {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 1rem;
+}
+.candidato header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+.candidato.top {
+  border: 2px solid var(--azul);
+}
+.pos {
+  color: var(--suave);
+}
+.score {
+  margin-left: auto;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--azul);
+}
+.desglose {
+  font-size: 0.85rem;
+  margin-bottom: 0.7rem;
+}
+.barrita {
+  height: 6px;
+  background: var(--azul);
+  border-radius: 3px;
+  margin-bottom: 2px;
+}
+.resumen .badge {
+  align-self: flex-start;
+  margin-left: 0;
+}

@@ -6,11 +6,15 @@ import { afterAll, describe, expect, it } from 'vitest';
 import { ApiErrorBody } from '@tutorias/contracts/common';
 import { closeTestDb, createTestApp } from './helpers';
 
-const RUTAS_DE_MODULOS = [
+/** Rutas de listado de los módulos MVP (responden 200 con sesión). */
+const RUTAS_STUB = [
   '/api/v1/materias',
   '/api/v1/tutores',
   '/api/v1/estudiantes',
   '/api/v1/solicitudes',
+];
+const RUTAS_DE_MODULOS = [
+  ...RUTAS_STUB,
   '/api/v1/recomendaciones',
   '/api/v1/asignaciones',
   '/api/v1/matching/config',
@@ -39,15 +43,11 @@ describe('Plataforma (integración)', () => {
     },
   );
 
-  it.each(RUTAS_DE_MODULOS)(
-    'con sesión GET %s → 501 mientras el módulo es un stub',
-    async (ruta) => {
-      const { request } = await createTestApp();
-      const res = await request.get(ruta);
-      expect(res.status).toBe(501);
-      expect(ApiErrorBody.parse(res.body).error.code).toBe('NOT_IMPLEMENTED');
-    },
-  );
+  it.each(RUTAS_STUB)('con sesión GET %s → 200', async (ruta) => {
+    const { request } = await createTestApp();
+    const res = await request.get(ruta);
+    expect(res.status).toBe(200);
+  });
 
   it('con sesión, una ruta inexistente → 404 NOT_FOUND', async () => {
     const { request } = await createTestApp();

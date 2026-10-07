@@ -25,13 +25,13 @@ test.describe('autenticación', () => {
     await page.getByRole('button', { name: 'Ingresar' }).click();
 
     await expect(page).not.toHaveURL(/\/login$/);
-    await expect(page.getByText(`(${email})`)).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Panel del coordinador' })).toBeVisible();
 
     // La sesión sobrevive a una recarga (cookie httpOnly).
     await page.reload();
-    await expect(page.getByText(`(${email})`)).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Panel del coordinador' })).toBeVisible();
 
-    await page.getByRole('button', { name: 'Cerrar sesión' }).click();
+    await page.getByRole('button', { name: 'Salir' }).click();
     await expect(page).toHaveURL(/\/login$/);
   });
 });

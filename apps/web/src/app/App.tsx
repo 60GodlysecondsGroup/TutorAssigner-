@@ -1,12 +1,19 @@
 /**
- * Shell mínimo de bootstrap (F0/F9, Dev 1). Dueño del shell: Dev 5, que en F3 lo reemplaza por
- * el router con los manifiestos de todas las features, el layout, el kit de UI y MSW.
- * Aquí solo se cablea lo que auth necesita: providers, /login y el área protegida.
+ * Shell de la SPA. Versión MVP de demo: rutas de `src/mvp` dentro del área autenticada.
+ * Dev 5 lo reemplaza por el router con manifiestos de features, el layout y el kit de UI (F3).
  */
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { AuthProvider, RequireAuth, authPublicRoutes } from '../features/auth';
-import { BootstrapHome } from './BootstrapHome';
+import { AsignacionesPage } from '../mvp/AsignacionesPage';
+import { ConfiguracionPage } from '../mvp/ConfiguracionPage';
+import { EstudiantesPage } from '../mvp/EstudiantesPage';
+import { InicioPage } from '../mvp/InicioPage';
+import { Layout } from '../mvp/Layout';
+import { RecomendacionPage } from '../mvp/RecomendacionPage';
+import { SolicitudesPage } from '../mvp/SolicitudesPage';
+import { TutoresPage } from '../mvp/TutoresPage';
+import '../mvp/mvp.css';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
@@ -22,7 +29,16 @@ export function App() {
               <Route key={r.path} path={r.path} element={r.element} />
             ))}
             <Route element={<RequireAuth />}>
-              <Route path="*" element={<BootstrapHome />} />
+              <Route element={<Layout />}>
+                <Route index element={<InicioPage />} />
+                <Route path="solicitudes" element={<SolicitudesPage />} />
+                <Route path="solicitudes/:id/recomendacion" element={<RecomendacionPage />} />
+                <Route path="tutores" element={<TutoresPage />} />
+                <Route path="estudiantes" element={<EstudiantesPage />} />
+                <Route path="asignaciones" element={<AsignacionesPage />} />
+                <Route path="configuracion" element={<ConfiguracionPage />} />
+                <Route path="*" element={<InicioPage />} />
+              </Route>
             </Route>
           </Routes>
         </AuthProvider>
