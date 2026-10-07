@@ -92,6 +92,9 @@ services:
     environment:
       VITE_API_PROXY_TARGET: ${VITE_API_PROXY_TARGET:-http://api:3000}
       VITE_API_MOCKS: ${VITE_API_MOCKS:-false}
+      # Solo desarrollo/demo: la página de login muestra estas credenciales para copiarlas.
+      VITE_DEMO_EMAIL: ${ADMIN_EMAIL:-coordinador@tutorias.local}
+      VITE_DEMO_PASSWORD: ${ADMIN_PASSWORD:-coordinador-dev-123}
       WATCH_POLLING: ${WATCH_POLLING:-false}
     ports:
       - '5173:5173'

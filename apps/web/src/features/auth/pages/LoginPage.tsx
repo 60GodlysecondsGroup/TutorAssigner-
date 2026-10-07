@@ -10,6 +10,32 @@ import styles from './LoginPage.module.css';
 
 type FormValues = { email: string; password: string };
 
+/** Credenciales de demo (desarrollo): las inyecta Compose desde ADMIN_EMAIL / ADMIN_PASSWORD. */
+const DEMO = {
+  email: (import.meta.env.VITE_DEMO_EMAIL as string | undefined) ?? '',
+  password: (import.meta.env.VITE_DEMO_PASSWORD as string | undefined) ?? '',
+};
+
+function CopiarTexto({ etiqueta, valor }: { etiqueta: string; valor: string }) {
+  const [copiado, setCopiado] = useState(false);
+  return (
+    <div className={styles.demoFila}>
+      <span>{etiqueta}</span>
+      <code>{valor}</code>
+      <button
+        type="button"
+        onClick={() => {
+          void navigator.clipboard?.writeText(valor);
+          setCopiado(true);
+          setTimeout(() => setCopiado(false), 1500);
+        }}
+      >
+        {copiado ? '¡Copiado!' : 'Copiar'}
+      </button>
+    </div>
+  );
+}
+
 function mensajeDeError(err: unknown): string {
   if (err instanceof ApiError) {
     if (err.code === 'AUTH_INVALID_CREDENTIALS') return 'Correo o contraseña incorrectos.';
@@ -31,6 +57,7 @@ export function LoginPage() {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(LoginRequest),
@@ -101,6 +128,24 @@ export function LoginPage() {
         <button type="submit" className={styles.submit} disabled={isSubmitting}>
           {isSubmitting ? 'Ingresando…' : 'Ingresar'}
         </button>
+
+        {DEMO.email && DEMO.password && (
+          <section className={styles.demo} aria-label="Credenciales de demo">
+            <strong>Credenciales de demo</strong>
+            <CopiarTexto etiqueta="Correo" valor={DEMO.email} />
+            <CopiarTexto etiqueta="Contraseña" valor={DEMO.password} />
+            <button
+              type="button"
+              className={styles.demoUsar}
+              onClick={() => {
+                setValue('email', DEMO.email);
+                setValue('password', DEMO.password);
+              }}
+            >
+              Rellenar el formulario
+            </button>
+          </section>
+        )}
       </form>
     </main>
   );
